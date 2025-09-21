@@ -13,12 +13,10 @@ void setup() {
   }
 
   Serial.begin(9600);
-  delay(100); 
   Serial.print('A');
 }
 
 void loop() {
-  delay(1000);
 }
 """
 
@@ -34,12 +32,10 @@ void setup() {
   }
 
   Serial.begin(9600);
-  delay(100);
   Serial.print('B');
 }
 
 void loop() {
-  delay(1000);
 }
 """
 
