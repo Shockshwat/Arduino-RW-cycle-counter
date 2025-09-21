@@ -1,0 +1,7 @@
+pattern_A
+pattern_B
+.vscode
+__pycache__
+.board_cache.json
+cycle_count_cache.txt
+.python-version
