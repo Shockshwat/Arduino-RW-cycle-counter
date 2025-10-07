@@ -30,7 +30,7 @@ def run_cycle(cycle_count, serial_port, board_fqbn):
 
     try:
         with serial.Serial(serial_port, 9600, timeout=10) as serialPort:
-            data = serialPort.read(1).decode(errors="ignore").strip()
+            data = serialPort.read(10).decode(errors="ignore").strip()
     except serial.SerialException as e:
         print(f"FATAL: Could not open serial port {serial_port} after upload.")
         print(f"Details: {e}")
@@ -39,6 +39,13 @@ def run_cycle(cycle_count, serial_port, board_fqbn):
     if data == expected_serial_char:
         cycle_count += 1
         print(f"Serial check passed. Cycle count: {cycle_count}")
+    elif data.startswith("F"):
+        failed_address = data[1:] if len(data) > 1 else "unknown"
+        print(f"FATAL: Flash memory verification failed at cycle {cycle_count + 1}.")
+        print(f"Failed address: {failed_address}")
+        print(f"Expected pattern: {expected_serial_char} (0xFF if A, 0x00 if B)")
+        print("This indicates flash memory bit failure.")
+        return False, cycle_count
     else:
         print(f"FATAL: Serial check failed at cycle {cycle_count + 1}.")
         print(f"Expected '{expected_serial_char}' but got '{data}'.")

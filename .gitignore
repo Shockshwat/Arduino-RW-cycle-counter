@@ -5,3 +5,11 @@ __pycache__
 .board_cache.json
 cycle_count_cache.txt
 .python-version
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.pdf
+*.synctex.gz
+*.tex
